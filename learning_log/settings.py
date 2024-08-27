@@ -21,6 +21,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # мои приложения
     'learning_logs',
+    'users',
 
     # системные приложения 
     'django.contrib.admin',
