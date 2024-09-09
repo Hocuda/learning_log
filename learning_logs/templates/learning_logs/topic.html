@@ -6,9 +6,9 @@
 
 {% block content %}
 
-	<p>
+	<h5 class="card-header">
 		<a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
-	</p>
+	</h5>
 	
 		{% for entry in entries %}
 			<div class="card mb-3">
