@@ -8,9 +8,19 @@ Here is the [link](https://learning--logs-5b2cf3590fcc.herokuapp.com/)
 
 
 ### Download & boot:
+
++ For Linux
 ```
 git clone https://github.com/Hocuda/learning_log
 cd learning_log
 source ll_env/bin/activate
 python3 manage.py runserver
+```
+
++ For Windows
+```
+git clone https://github.com/Hocuda/learning_log
+cd learning_log
+ll_env/Scripts/activate
+python manage.py runserver
 ```
