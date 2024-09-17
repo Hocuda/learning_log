@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 
@@ -91,3 +92,12 @@ def edit_entry(request, entry_id):
 
 	context = {'entry': entry, 'topic': topic, 'form': form}
 	return render(request, 'learning_logs/edit_entry.html', context)
+
+
+def delete_topic(request, topic_id):
+	topic = get_object_or_404(Topic, id=topic_id)
+	if topic.owner != request.user:
+		raise Http404
+		
+	topic.delete()
+	return HttpResponseRedirect(reverse('learning_logs:topics'))

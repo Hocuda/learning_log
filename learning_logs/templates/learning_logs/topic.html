@@ -2,6 +2,11 @@
 
 {% block page_header %}
 	<h3>{{ topic }}</h3>
+	<div class="clearfix">
+		<h5>
+			<a class="float-right" href="{% url 'learning_logs:delete_topic' topic.id %}">delete topic</a>
+		</h5>
+	</div>
 {% endblock page_header %}
 
 {% block content %}
