@@ -13,7 +13,14 @@ def index(request):
 @login_required
 def topics(request):
 	"""Отображает все темы"""
-	topics = Topic.objects.filter(owner=request.user).order_by('date_added')
+	topics_owner = Topic.objects.filter(owner=request.user).order_by('date_added')
+	topics_private = Topic.objects.filter(private=False)
+
+	if topics_private:
+		topics = topics_owner | topics_private
+	else:
+		topics = topics_owner
+
 	context = {'topics': topics}
 	return render(request, 'learning_logs/topics.html', context)
 
@@ -22,7 +29,7 @@ def topics(request):
 def topic(request, topic_id):
 	"""Показать отдельный раздел и все его записи"""
 	topic = get_object_or_404(Topic, id=topic_id)
-	if topic.owner != request.user:
+	if topic.owner != request.user and topic.private:
 		raise Http404
 	entries = topic.entry_set.order_by('-date_added')
 	context = {'topic': topic, 'entries': entries}
