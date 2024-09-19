@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import Topic, Entry
-from .forms import TopicForm, EntryForm
+from .forms import TopicForm, EntryForm, DelTopicForm
 
 def index(request):
 	"""Главная страница 'Журнала наблюдений' """
@@ -102,9 +102,17 @@ def edit_entry(request, entry_id):
 
 
 def delete_topic(request, topic_id):
-	topic = get_object_or_404(Topic, id=topic_id)
-	if topic.owner != request.user:
-		raise Http404
-		
-	topic.delete()
-	return HttpResponseRedirect(reverse('learning_logs:topics'))
+    topic = get_object_or_404(Topic, id=topic_id)
+    if topic.owner != request.user:
+        raise Http404
+    
+    if request.method != 'POST':
+        form = DelTopicForm(instance=topic)
+    else:
+        form = DelTopicForm(instance=topic, data=request.POST)
+        topic.delete()
+        return HttpResponseRedirect(reverse('learning_logs:topics'))
+
+    # Pass the context to the render function
+    context = {'topic': topic, 'form': form}
+    return render(request, 'learning_logs/delete_topic.html', context)

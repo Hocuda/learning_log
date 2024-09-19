@@ -2,9 +2,14 @@
 
 {% block page_header %}
 	<h3>{{ topic }}</h3>
+	{% if user == topic.owner %}
+		<h4>This is your topic</h4>
+	{% else %}
+		<h4>This is {{ topic.owner }}'s topic</h4>
+	{% endif %}
 	<div class="clearfix">
 		<h5>
-			<a class="float-right" href="{% url 'learning_logs:delete_topic' topic.id %}">delete topic</a>
+			<a class="float-right" href="{% url 'learning_logs:delete_topic' topic.id %}">Delete topic</a>
 		</h5>
 	</div>
 {% endblock page_header %}
@@ -33,3 +38,6 @@
 		{% endfor %}
 
 {% endblock content %}
+
+
+I am log in like admin, and I see "That is admin topic"

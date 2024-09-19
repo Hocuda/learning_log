@@ -1,0 +1,19 @@
+{% extends "learning_logs/base.html" %}
+
+{% block page_header %}
+	<h2>Delete a '{{ topic }}' topic</h2>
+	{% if topic.private %}
+		<h4>This is a private topic</h4>
+	{% else %}
+		<h4>This is a public topic</h4>
+	{% endif %}
+{% endblock page_header %}
+
+{% block content %}
+	
+	<form method="post" action="{% url 'learning_logs:delete_topic' topic.id %}">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button name="submit">Delete topic</button>
+	</form>
+{% endblock content %}
