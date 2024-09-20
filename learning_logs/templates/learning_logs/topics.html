@@ -1,4 +1,5 @@
 {% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
 
 {% block page_header %}
 	<h1>Topics</h1>
@@ -13,7 +14,9 @@
 			</h3></li>
 			{% if user == topic.owner %}
 				<div class="float-right">
-					<h5><a href="{% url 'learning_logs:delete_topic' topic.id %}">Delete topic</a></h5>
+					{% buttons %}
+						<a href="{% url 'learning_logs:delete_topic' topic.id %}" class="btn btn-primary">Delete topic</a>
+					{% endbuttons %}
 				</div>
 				<h5>This is your topic</h5>
 			{% else %}

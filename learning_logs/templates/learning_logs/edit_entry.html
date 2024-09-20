@@ -9,7 +9,7 @@
 {% block content %}
 
 	<form method="post" action="{% url 'learning_logs:edit_entry' entry.id %}" 
-		class="form">
+	class="form">
 		{% csrf_token %}
 		{% bootstrap_form form %}
 		{% buttons %}
